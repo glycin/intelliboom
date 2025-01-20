@@ -68,3 +68,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
+### IDEA Plugin ###
+.intellijPlatform
