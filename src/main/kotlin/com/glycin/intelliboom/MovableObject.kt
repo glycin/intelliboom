@@ -8,7 +8,7 @@ import kotlin.math.sin
 
 private const val DRAG = 0.8
 
-class ExplosionObject(
+class MovableObject(
     var position: Vec2,
     val width: Int,
     val height: Int,
@@ -25,7 +25,7 @@ class ExplosionObject(
     var velocity = Vec2.zero
     var force = 0.0f
 
-    fun intersects(other: ExplosionObject): Boolean {
+    fun intersects(other: MovableObject): Boolean {
         return maxX() > other.minX() &&
                 minX() < other.maxX() &&
                 maxY() > other.minY() &&

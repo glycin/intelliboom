@@ -1,5 +1,6 @@
 package com.glycin.intelliboom
 
+import java.awt.Point
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -64,3 +65,5 @@ data class Vec2(
         return result
     }
 }
+
+fun Point.toVec2() = Vec2(x.toFloat(), y.toFloat())
