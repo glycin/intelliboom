@@ -33,7 +33,6 @@ class BoomDrawComponent(
     init {
         scope.launch {
             while (active) {
-                println("BOOM")
                 showAnimation(4)
                 repaint()
                 delay(deltaTime)

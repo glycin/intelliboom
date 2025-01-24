@@ -50,4 +50,8 @@ class MovableObject(
     fun rest(){
         label?.isVisible = false
     }
+
+    override fun toString(): String {
+        return "MovableObject $char at pos: $position, with width: $width and height: $height"
+    }
 }

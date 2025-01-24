@@ -1,5 +1,6 @@
 package com.glycin.intelliboom
 
+import com.intellij.openapi.editor.ScrollingModel
 import java.awt.Point
 import kotlin.math.abs
 import kotlin.math.sqrt
@@ -67,3 +68,4 @@ data class Vec2(
 }
 
 fun Point.toVec2() = Vec2(x.toFloat(), y.toFloat())
+fun Point.toVec2(offset: ScrollingModel) = Vec2(x.toFloat() + offset.horizontalScrollOffset, y.toFloat() - offset.verticalScrollOffset)

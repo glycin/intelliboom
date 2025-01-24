@@ -1,10 +1,12 @@
 package com.glycin.intelliboom
 
+import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.event.EditorMouseEvent
 import com.intellij.openapi.editor.event.EditorMouseEventArea
 import com.intellij.openapi.editor.event.EditorMouseListener
 import java.awt.event.InputEvent
 import java.awt.event.MouseEvent
+import javax.swing.JScrollPane
 
 
 class BoomClickListener(
