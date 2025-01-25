@@ -2,7 +2,7 @@ package com.glycin.intelliboom
 
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.LogicalPosition
+import com.intellij.openapi.editor.colors.EditorFontType
 import com.intellij.openapi.util.TextRange
 import kotlinx.coroutines.CoroutineScope
 import java.awt.Point
@@ -15,7 +15,7 @@ private const val FPS = 120L
 private const val EXP_1_SIZE = 18
 private const val EXP_2_SIZE = 23
 private const val EXP_3_SIZE = 21
-private const val EXP_STRENGTH = 10
+private const val EXP_STRENGTH = 20
 
 class BoomManager(
     private val scope: CoroutineScope,
@@ -36,8 +36,12 @@ class BoomManager(
         val contentComponent = editor.contentComponent
         editor.settings.isVirtualSpace = true
 
+        val lines = getLinesInRange(editor, mousePosition)
+        val objs = getAffectedChars(editor, lines)
+
         val boomComponent = BoomDrawComponent(
             explosionImages = explosions.random(),
+            explosionObjects = objs,
             position = mousePosition.toVec2(editor.scrollingModel),
             scope = scope,
             fps = FPS,
@@ -57,10 +61,6 @@ class BoomManager(
         contentComponent.repaint()
 
         boomComponent.requestFocusInWindow()
-
-        val lines = getLinesInRange(editor, mousePosition)
-        val objs = getAffectedChars(editor, lines)
-        println(objs)
     }
 
     override fun dispose() {
@@ -99,7 +99,6 @@ class BoomManager(
         return affectedLines
     }
 
-    //TODO: Do i also need to take a look at the charwdith?
     private fun getAffectedChars(editor: Editor, affectedLines: List<Int>): List<MovableObject> {
         val document = editor.document
 
@@ -111,11 +110,16 @@ class BoomManager(
                 val charPos = editor.offsetToXY(startOffset + index)
                 MovableObject(
                     position = charPos.toVec2(),
-                    width = 10,
+                    width = getCharWidth(editor, c),
                     height = editor.lineHeight,
                     char = c.toString(),
                 )
             }
         }
+    }
+
+    private fun getCharWidth(editor: Editor, c: Char): Int {
+        val fontMetrics = editor.contentComponent.getFontMetrics(editor.colorsScheme.getFont(EditorFontType.PLAIN))
+        return fontMetrics.charWidth(c)
     }
 }

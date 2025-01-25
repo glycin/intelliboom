@@ -14,7 +14,6 @@ class MovableObject(
     val height: Int,
     val char: String,
     var label: JLabel? = null,
-    private var moving: Boolean = false
 ){
     fun minX() = position.x
     fun maxX() = position.x + width
@@ -33,7 +32,6 @@ class MovableObject(
     }
 
     fun moveWithForce(forceMagnitude: Float, explosionPos: Vec2) {
-
         this.force = forceMagnitude
         val angle = atan2((midPoint().y - explosionPos.y).toDouble(), (midPoint().x - explosionPos.x).toDouble())
         val deltaX = ((force * cos(angle)) * DRAG).roundToInt()

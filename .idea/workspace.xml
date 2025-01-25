@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13b1abb1-cfae-4c4a-a116-7561804c646c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/BoomClickListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/BoomClickListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/BoomDrawComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/BoomDrawComponent.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/BoomManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/BoomManager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/Vec2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/Vec2.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/MovableObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/glycin/intelliboom/MovableObject.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,17 @@
             </after_sync>
           </activation>
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="intelliboom" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -91,7 +102,9 @@
       <workItem from="1737410566826" duration="3758000" />
       <workItem from="1737414369948" duration="1779000" />
       <workItem from="1737579885830" duration="6252000" />
-      <workItem from="1737735444714" duration="6714000" />
+      <workItem from="1737735444714" duration="7172000" />
+      <workItem from="1737834296324" duration="1302000" />
+      <workItem from="1737835636131" duration="1032000" />
     </task>
     <servers />
   </component>
