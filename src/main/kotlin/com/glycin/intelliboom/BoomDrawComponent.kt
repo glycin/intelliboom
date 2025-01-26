@@ -144,8 +144,9 @@ class BoomDrawComponent(
 
                 a.position -= Vec2(moveX.toFloat(), moveY.toFloat())
                 b.position += Vec2(moveX.toFloat(), moveY.toFloat())
-                a.velocity *= -1
-                b.velocity *= -1
+
+                a.updateLabel()
+                b.updateLabel()
             }
     }
 

@@ -19,7 +19,6 @@ class MovableObject(
     fun maxY() = position.y + height
     fun midPoint() = Vec2(position.x + width / 2, position.y + height / 2)
 
-    var velocity = Vec2.zero
     var force = 0.0f
 
     fun intersects(other: MovableObject): Boolean {
@@ -36,6 +35,9 @@ class MovableObject(
         val deltaY = ((force * sin(angle)) * DRAG).roundToInt()
 
         position = Vec2(max(position.x + deltaX, 0f), max(position.y + deltaY, 0f))
+    }
+
+    fun updateLabel() {
         label?.setBounds(position.x.roundToInt(), position.y.roundToInt(), width, height)
     }
 
