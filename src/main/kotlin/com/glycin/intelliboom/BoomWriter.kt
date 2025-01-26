@@ -11,7 +11,6 @@ import kotlin.math.roundToInt
 
 object BoomWriter {
 
-    //TODO: fix when scrolled
     fun writeText(objs: List<MovableObject>, editor: Editor, project: Project) {
         val logicalPositions = objs.associateBy {
             val x = editor.xyToLogicalPosition(it.position.toPoint(editor.scrollingModel)).column
@@ -36,15 +35,22 @@ object BoomWriter {
 
         ApplicationManager.getApplication().invokeLater {
             WriteCommandAction.runWriteCommandAction(project) {
-                editor.document.insertString(0, s) //TODO: Maybe add enters to keep the original scroll view
+                editor.document.replaceString(0, editor.document.textLength, s)
             }
         }
     }
 
     fun clear(editor: Editor, project: Project) {
+        val text = editor.document.text
+        val sb = StringBuilder()
+        text.forEach {
+            if(it == '\n' || it == '\r') { sb.append(it) }
+            else sb.append(' ')
+        }
+
         ApplicationManager.getApplication().invokeLater {
             WriteCommandAction.runWriteCommandAction(project) {
-                editor.document.deleteString(0, editor.document.textLength)
+                editor.document.replaceString(0, editor.document.textLength, sb.toString())
             }
         }
     }

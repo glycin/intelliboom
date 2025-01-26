@@ -28,7 +28,7 @@ class BoomDrawComponent(
     private val deltaTime = 1000L / fps
 
     private val explosionDecay = 50
-    private val explosionForce = 5
+    private val explosionForce = 10
     private val explosionRadius = 200
 
     private var currentAnimationIndex = 0
@@ -83,14 +83,14 @@ class BoomDrawComponent(
         val scheme = EditorColorsManager.getInstance().globalScheme
         val fontPreferences = scheme.fontPreferences
 
-        explosionObjects.forEach { boom ->
-            val objLabel = JLabel(boom.char)
+        explosionObjects.forEach { eo ->
+            val objLabel = JLabel(eo.char)
             objLabel.font = Font(fontPreferences.fontFamily, 0, fontPreferences.getSize(fontPreferences.fontFamily))
-            objLabel.setBounds(boom.position.x.roundToInt(), boom.position.y.roundToInt(), boom.width, boom.height)
+            objLabel.setBounds(eo.position.x.roundToInt(), eo.position.y.roundToInt(), eo.width, eo.height)
             objLabel.isVisible = false
             add(objLabel)
-            boom.label = objLabel
-            boom.show()
+            eo.label = objLabel
+            eo.show()
         }
         repaint()
     }
@@ -151,13 +151,13 @@ class BoomDrawComponent(
 
     // Used for debugging
     private fun drawObjects(g: Graphics2D) {
-        explosionObjects.forEach { boom ->
-            if(boom.inRange){
+        explosionObjects.forEach { eo ->
+            if(eo.inRange){
                 g.color = JBColor.GREEN
             } else {
                 g.color = Gray._117
             }
-            g.drawRect(boom.position.x.roundToInt(), boom.position.y.roundToInt(), boom.width, boom.height)
+            g.drawRect(eo.position.x.roundToInt(), eo.position.y.roundToInt(), eo.width, eo.height)
         }
     }
 }

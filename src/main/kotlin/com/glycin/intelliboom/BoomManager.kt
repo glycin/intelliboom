@@ -5,6 +5,7 @@ import com.intellij.openapi.application.EDT
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.colors.EditorFontType
 import com.intellij.openapi.util.TextRange
+import com.jetbrains.rd.generator.nova.PredefinedType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,12 +38,16 @@ class BoomManager(
 
     fun explode(mousePosition: Point, editor: Editor) {
         if(editor.document.textLength <= 0) return
+        if(editor.document.text.all { it.isWhitespace() || it == '\n' }) return
         val project = editor.project ?: return
 
         val contentComponent = editor.contentComponent
         editor.settings.isVirtualSpace = true
 
         val objs = getLinesInRange(editor, mousePosition)
+        objs.forEach {
+            println("${it.position} -> ${it.char}")
+        }
         BoomWriter.clear(editor, project)
 
         val boomComponent = BoomDrawComponent(
@@ -96,7 +101,6 @@ class BoomManager(
     private fun getLinesInRange(editor: Editor, explosionCenter: Point): List<MovableObject> {
         val document = editor.document
         val explosionLine = editor.xyToLogicalPosition(explosionCenter).line
-        val scrollOffset = editor.scrollingModel
         return (0 until document.lineCount).flatMap { line ->
             val startOffset = document.getLineStartOffset(line)
             val endOffset = document.getLineEndOffset(line)
@@ -106,11 +110,11 @@ class BoomManager(
                 if(c.isWhitespace()) return@mapIndexedNotNull null
                 val charPos = editor.offsetToXY(startOffset + index)
                 MovableObject(
-                    position = charPos.toVec2(scrollOffset),
+                    position = charPos.toVec2(),
                     width = getCharWidth(editor, c),
                     height = editor.lineHeight,
                     char = c.toString(),
-                    inRange = distance <= EXP_STRENGTH
+                    inRange = distance <= EXP_STRENGTH,
                 )
             }
         }
