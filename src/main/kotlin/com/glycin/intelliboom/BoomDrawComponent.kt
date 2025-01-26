@@ -2,6 +2,7 @@ package com.glycin.intelliboom
 
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.ui.Gray
+import com.intellij.ui.JBColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -39,7 +40,7 @@ class BoomDrawComponent(
     init {
         createLabels()
 
-        scope.launch {
+        scope.launch(Dispatchers.Default) {
             while (active) {
                 showAnimation(4)
                 repaint()
@@ -99,10 +100,12 @@ class BoomDrawComponent(
         val duration = 1000 //millis
         val endTime = start + duration
 
-        scope.launch (Dispatchers.Main) {
+        scope.launch (Dispatchers.Default) {
             delay(50) // A little delay to make the effect match the gif
             while(System.currentTimeMillis() < endTime) {
-                explosionObjects.onEach { b ->
+                explosionObjects.filter {
+                    it.inRange
+                }.onEach { b ->
                     val centerPos = b.midPoint()
                     val distance = Vec2.distance(centerPos, explosionPos)
 
@@ -118,8 +121,6 @@ class BoomDrawComponent(
                 delay(deltaTime)
             }
             explosionObjects.forEach { it.rest() }
-        }.invokeOnCompletion {
-            //explosionWriter.writeText(boomObjects)
         }
     }
 
@@ -151,7 +152,11 @@ class BoomDrawComponent(
     // Used for debugging
     private fun drawObjects(g: Graphics2D) {
         explosionObjects.forEach { boom ->
-            g.color = Gray._117
+            if(boom.inRange){
+                g.color = JBColor.GREEN
+            } else {
+                g.color = Gray._117
+            }
             g.drawRect(boom.position.x.roundToInt(), boom.position.y.roundToInt(), boom.width, boom.height)
         }
     }

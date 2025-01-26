@@ -3,6 +3,7 @@ package com.glycin.intelliboom
 import com.intellij.openapi.editor.ScrollingModel
 import java.awt.Point
 import kotlin.math.abs
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 
@@ -23,10 +24,6 @@ data class Vec2(
             val dy = (b.y - a.y)
             return sqrt(dx * dx + dy * dy)
         }
-
-        fun opposite(vec2: Vec2): Vec2 {
-            return Vec2(-vec2.x, -vec2.y)
-        }
     }
 
     operator fun plus(other: Vec2) = Vec2(x + other.x, y + other.y)
@@ -38,15 +35,6 @@ data class Vec2(
     operator fun minus(other: Float) = Vec2(x - other, y - other)
     operator fun times(scalar: Float) = Vec2(x * scalar, y * scalar)
     operator fun div(scalar: Float) = Vec2(x / scalar, y / scalar)
-
-    fun dot(other: Vec2) = x * other.x + y * other.y
-
-    fun magnitude() = sqrt(x.toDouble() * x + y * y)
-
-    fun normalized(): Vec2 {
-        val mag = magnitude().toFloat()
-        return if (mag != 0.0F) this / mag else zero
-    }
 
     override fun toString(): String {
         return "Vec2($x,$y)"
@@ -67,5 +55,5 @@ data class Vec2(
     }
 }
 
-fun Point.toVec2() = Vec2(x.toFloat(), y.toFloat())
 fun Point.toVec2(offset: ScrollingModel) = Vec2(x.toFloat() + offset.horizontalScrollOffset, y.toFloat() - offset.verticalScrollOffset)
+fun Vec2.toPoint(offset: ScrollingModel) = Point((x + offset.horizontalScrollOffset).roundToInt(), (y - offset.verticalScrollOffset).roundToInt())

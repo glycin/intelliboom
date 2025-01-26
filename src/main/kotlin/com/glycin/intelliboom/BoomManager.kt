@@ -1,10 +1,13 @@
 package com.glycin.intelliboom
 
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.EDT
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.colors.EditorFontType
 import com.intellij.openapi.util.TextRange
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.awt.Point
 import java.awt.image.BufferedImage
 import javax.swing.JScrollPane
@@ -15,7 +18,7 @@ private const val FPS = 120L
 private const val EXP_1_SIZE = 18
 private const val EXP_2_SIZE = 23
 private const val EXP_3_SIZE = 21
-private const val EXP_STRENGTH = 20
+private const val EXP_STRENGTH = 30
 
 class BoomManager(
     private val scope: CoroutineScope,
@@ -33,12 +36,14 @@ class BoomManager(
     }
 
     fun explode(mousePosition: Point, editor: Editor) {
+        if(editor.document.textLength <= 0) return
+        val project = editor.project ?: return
+
         val contentComponent = editor.contentComponent
         editor.settings.isVirtualSpace = true
 
-        val lines = getLinesInRange(editor, mousePosition)
-        val objs = getAffectedChars(editor, lines)
-
+        val objs = getLinesInRange(editor, mousePosition)
+        BoomWriter.clear(editor, project)
         val boomComponent = BoomDrawComponent(
             explosionImages = explosions.random(),
             explosionObjects = objs,
@@ -51,6 +56,9 @@ class BoomManager(
                 contentComponent.revalidate()
                 contentComponent.repaint()
                 contentComponent.requestFocusInWindow()
+                scope.launch(Dispatchers.EDT) {
+                    BoomWriter.writeText(objs, editor, project)
+                }
             }
         ).apply {
             bounds = (SwingUtilities.getAncestorOfClass(JScrollPane::class.java, editor.contentComponent) as JScrollPane).viewport.viewRect
@@ -61,6 +69,7 @@ class BoomManager(
         contentComponent.repaint()
 
         boomComponent.requestFocusInWindow()
+        editor.settings.isVirtualSpace = false
     }
 
     override fun dispose() {
@@ -83,36 +92,24 @@ class BoomManager(
             .forEachIndexed { i, img -> explosion3[i] = img }
     }
 
-    private fun getLinesInRange(editor: Editor, explosionCenter: Point): List<Int> {
+    private fun getLinesInRange(editor: Editor, explosionCenter: Point): List<MovableObject> {
         val document = editor.document
-        val affectedLines = mutableListOf<Int>()
-        for(line in 0 until document.lineCount) {
-            val lineStartOffset = document.getLineStartOffset(line)
-            val lineY = editor.offsetToXY(lineStartOffset).y
-            val distance = abs(lineY - explosionCenter.y)
-
-            if(distance <= EXP_STRENGTH * editor.lineHeight) {
-                affectedLines.add(line)
-            }
-        }
-
-        return affectedLines
-    }
-
-    private fun getAffectedChars(editor: Editor, affectedLines: List<Int>): List<MovableObject> {
-        val document = editor.document
-
-        return affectedLines.flatMap { line ->
+        val explosionLine = editor.xyToLogicalPosition(explosionCenter).line
+        val scrollOffset = editor.scrollingModel
+        return (0 until document.lineCount).flatMap { line ->
             val startOffset = document.getLineStartOffset(line)
             val endOffset = document.getLineEndOffset(line)
+            val distance = abs(editor.offsetToLogicalPosition(startOffset).line - explosionLine)
+
             document.getText(TextRange(startOffset, endOffset)).mapIndexedNotNull { index, c ->
                 if(c.isWhitespace()) return@mapIndexedNotNull null
                 val charPos = editor.offsetToXY(startOffset + index)
                 MovableObject(
-                    position = charPos.toVec2(),
+                    position = charPos.toVec2(scrollOffset),
                     width = getCharWidth(editor, c),
                     height = editor.lineHeight,
                     char = c.toString(),
+                    inRange = distance <= EXP_STRENGTH
                 )
             }
         }
