@@ -44,6 +44,7 @@ class BoomManager(
 
         val objs = getLinesInRange(editor, mousePosition)
         BoomWriter.clear(editor, project)
+
         val boomComponent = BoomDrawComponent(
             explosionImages = explosions.random(),
             explosionObjects = objs,

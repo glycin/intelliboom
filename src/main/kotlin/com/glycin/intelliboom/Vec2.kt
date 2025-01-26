@@ -57,3 +57,4 @@ data class Vec2(
 
 fun Point.toVec2(offset: ScrollingModel) = Vec2(x.toFloat() + offset.horizontalScrollOffset, y.toFloat() - offset.verticalScrollOffset)
 fun Vec2.toPoint(offset: ScrollingModel) = Point((x + offset.horizontalScrollOffset).roundToInt(), (y - offset.verticalScrollOffset).roundToInt())
+fun Vec2.toPoint() = Point(x.roundToInt(), y.roundToInt())

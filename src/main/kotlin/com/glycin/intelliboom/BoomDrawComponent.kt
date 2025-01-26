@@ -105,18 +105,18 @@ class BoomDrawComponent(
             while(System.currentTimeMillis() < endTime) {
                 explosionObjects.filter {
                     it.inRange
-                }.onEach { b ->
-                    val centerPos = b.midPoint()
+                }.onEach { mo ->
+                    val centerPos = mo.midPoint()
                     val distance = Vec2.distance(centerPos, explosionPos)
 
                     if(distance < explosionRadius) {
                         val forceMagnitude = explosionForce * (explosionRadius - distance) / explosionDecay
-                        b.moveWithForce(forceMagnitude, explosionPos)
+                        mo.moveWithForce(forceMagnitude, explosionPos)
                     }else {
-                        b.force = 0.0f
+                        mo.force = 0.0f
                     }
 
-                    handleCollisions(b)
+                    handleCollisions(mo)
                 }
                 delay(deltaTime)
             }

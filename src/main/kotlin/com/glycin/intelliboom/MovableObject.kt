@@ -1,10 +1,7 @@
 package com.glycin.intelliboom
 
 import javax.swing.JLabel
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.roundToInt
-import kotlin.math.sin
+import kotlin.math.*
 
 private const val DRAG = 0.8
 
@@ -38,7 +35,7 @@ class MovableObject(
         val deltaX = ((force * cos(angle)) * DRAG).roundToInt()
         val deltaY = ((force * sin(angle)) * DRAG).roundToInt()
 
-        position = Vec2(position.x + deltaX, position.y + deltaY)
+        position = Vec2(max(position.x + deltaX, 0f), max(position.y + deltaY, 0f))
         label?.setBounds(position.x.roundToInt(), position.y.roundToInt(), width, height)
     }
 
