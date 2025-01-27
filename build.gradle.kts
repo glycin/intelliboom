@@ -37,7 +37,7 @@ intellijPlatform  {
         }
 
         description = """
-            <h1>Code Exploder</h1><br>
+            <h2>Code Exploder</h2><br>
             Ever stared at your code so long, frustrated, that you just wanted to blow it up?<br>
             Well, now you can! Code Exploder is the ultimate stress-relief plugin for IntelliJ IDEA.<br>
             When your code is driving you up the wall, simply hit <b>Ctrl + B</b> and watch it <b>explode into glorious chaos</b>!<br>
