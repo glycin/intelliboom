@@ -11,10 +11,10 @@ import kotlin.math.roundToInt
 
 object BoomWriter {
 
-    fun writeText(objs: List<MovableObject>, editor: Editor, project: Project) {
+    fun writeText(objs: List<MovableObject>, editor: Editor, project: Project, yOffset: Int) {
         val logicalPositions = objs.associateBy {
-            val x = editor.xyToLogicalPosition(it.position.toPoint(editor.scrollingModel)).column
-            LogicalPosition(getLogicalLineFromY(editor, it.position.y.roundToInt()), x)
+            val x = editor.xyToLogicalPosition(it.position.toPoint(yOffset = yOffset)).column
+            LogicalPosition(getLogicalLineFromY(editor, it.position.y.roundToInt() + yOffset), x)
         }
 
         // We add an extra line/column otherwise the max character of each will get discarded :(
