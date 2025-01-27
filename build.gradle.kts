@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.2.0"
 }
 
-val v = "0.0.1"
+val v = "1.0.0"
 
 group = "com.glycin"
 version = v
@@ -38,7 +38,7 @@ intellijPlatform  {
 
         description = """
             <h2>Code Exploder</h2><br>
-            Ever stared at your code so long, frustrated, that you just wanted to blow it up?<br>
+            Ever stared at your code so long in frustration, that you just wanted to blow it up?<br>
             Well, now you can! Code Exploder is the ultimate stress-relief plugin for IntelliJ IDEA.<br>
             When your code is driving you up the wall, simply hit <b>Ctrl + B</b> and watch it <b>explode into glorious chaos</b>!<br>
             Letters, symbols, and brackets fly everywhere in a satisfying burst of digital destruction, all centered around your cursor like a mini coding apocalypse.<br>
