@@ -47,7 +47,7 @@ intellijPlatform  {
             <h2>Key Features:</h2>
             <ul>
                 <li><b>Blow Stuff Up:</b> Smash your code into pieces with a single keystroke. You can finally take revenge on that pesky recursive function!</li>
-                <li><b>Cursor-Ground-Zero:</b> The explosion starts wherever your cursor is, so you can target that one annoying line of code.</li>
+                <li><b>Pixel perfect accuracy:</b> The explosion starts wherever your cursor is, so you can target that one annoying line of code.</li>
                 <li>Did I mention that you can blow stuff up? Because whith this you can!</li>
             </ul>
             <br>
