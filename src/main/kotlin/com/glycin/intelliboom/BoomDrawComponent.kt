@@ -60,7 +60,7 @@ class BoomDrawComponent(
         if(g is Graphics2D) {
             val pos = Vec2(position.x - (width / 2), position.y - (height / 2))
             g.drawImage(currentSprite, pos.x.roundToInt(), pos.y.roundToInt(), width, height, null)
-            drawObjects(g)
+            //drawObjects(g)
         }
     }
 
