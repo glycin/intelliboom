@@ -2,7 +2,7 @@
 
 Ever stared at your code so long, frustrated, that you just wanted to blow it up?  
 Well, now you can! **Code Exploder** is the ultimate stress-relief plugin for IntelliJ IDEA.  
-When your code is driving you up the wall, simply hit **Ctrl + B** and watch it **explode into glorious chaos**!  
+When your code is driving you up the wall, simply hit **Ctrl + Right Click** and watch it **explode into glorious chaos**!  
 Letters, symbols, and brackets fly everywhere in a satisfying burst of digital destruction, all centered around your cursor like a mini coding apocalypse.
 
 ---
