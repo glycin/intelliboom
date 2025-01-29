@@ -22,6 +22,7 @@ private const val EXP_STRENGTH = 30
 
 class BoomManager(
     private val scope: CoroutineScope,
+    private val boomSettings: BoomSettings,
 ): Disposable {
 
     private val explosion1 = arrayOfNulls<BufferedImage>(EXP_1_SIZE)

@@ -8,6 +8,7 @@ class BoomStartupActivity: ProjectActivity {
 
     override suspend fun execute(project: Project) {
         val application = ApplicationManager.getApplication()
-        application.getService(BoomService::class.java).init()
+        val config = application.getService(BoomSettings::class.java)
+        application.getService(BoomService::class.java).init(config)
     }
 }
