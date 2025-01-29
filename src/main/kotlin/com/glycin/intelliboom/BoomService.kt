@@ -14,6 +14,7 @@ class BoomService(
     private lateinit var boomClickListener : BoomClickListener
 
     fun init() {
+        if(bm != null) { return } // The manager is already registered, no need to do that again
         bm = BoomManager(scope)
         boomClickListener = BoomClickListener(bm)
         EditorFactory.getInstance().eventMulticaster.addEditorMouseListener(boomClickListener, this)
