@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage
 import javax.swing.JScrollPane
 import javax.swing.SwingUtilities
 import kotlin.math.abs
+import kotlin.random.Random
 
 private const val FPS = 120L
 private const val EXP_1_SIZE = 18
@@ -23,6 +24,7 @@ private const val EXP_STRENGTH = 30
 class BoomManager(
     private val scope: CoroutineScope,
     private val boomSettings: BoomSettings,
+    private val soundPlayer: SoundPlayer,
 ): Disposable {
 
     private val explosion1 = arrayOfNulls<BufferedImage>(EXP_1_SIZE)
@@ -68,6 +70,11 @@ class BoomManager(
             preferredSize = contentComponent.size
             isOpaque = false
         }
+
+        if(boomSettings.state.soundOn) {
+            soundPlayer.playExplosion()
+        }
+
         contentComponent.add(boomComponent)
         contentComponent.revalidate()
         contentComponent.repaint()

@@ -15,7 +15,7 @@ class BoomService(
 
     fun init(config: BoomSettings) {
         if(bm != null) { return } // The manager is already registered, no need to do that again
-        bm = BoomManager(scope, config)
+        bm = BoomManager(scope, config, SoundPlayer(scope))
         boomClickListener = BoomClickListener(bm)
         EditorFactory.getInstance().eventMulticaster.addEditorMouseListener(boomClickListener, this)
     }
