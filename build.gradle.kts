@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.2.0"
 }
 
-val v = "1.0.1"
+val v = "1.2.0"
 
 group = "com.glycin"
 version = v
@@ -54,6 +54,14 @@ intellijPlatform  {
             <strong>Warning:</strong> This will change your code structure. Don't use if you can't revert back (with Git or ctrl + z, or something). Use responsibly (or not).<br>
             <br>
             <b>Blow up your code. Take revenge! <span class="highlight">💥</b>
+        """.trimIndent()
+
+        changeNotes = """
+            <h3>v1.2.0</h3><br>
+            <b> Added sounds </b><br>
+            Added explosion sounds. You can turn these on/off through the settings (File -> Settings -> Code Exploder Settings)
+            <b> Bug fixes </b><br>
+            Fixed a bug that made explosions slower after when multiple editors were opened simultaneously
         """.trimIndent()
     }
 
