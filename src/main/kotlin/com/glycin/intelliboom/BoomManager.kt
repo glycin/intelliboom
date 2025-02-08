@@ -10,10 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.awt.Point
 import java.awt.image.BufferedImage
+import java.time.Instant
 import javax.swing.JScrollPane
 import javax.swing.SwingUtilities
 import kotlin.math.abs
-import kotlin.random.Random
 
 private const val FPS = 120L
 private const val EXP_1_SIZE = 18
@@ -47,7 +47,7 @@ class BoomManager(
 
         val yScroll = editor.scrollingModel.verticalScrollOffset
         val objs = getLinesInRange(editor, mousePosition)
-        BoomWriter.clear(editor, project)
+        BoomWriter.clear(editor, project, objs)
 
         val boomComponent = BoomDrawComponent(
             explosionImages = explosions.random(),
@@ -61,6 +61,7 @@ class BoomManager(
                 contentComponent.revalidate()
                 contentComponent.repaint()
                 contentComponent.requestFocusInWindow()
+
                 scope.launch(Dispatchers.EDT) {
                     BoomWriter.writeText(objs, editor, project, yScroll)
                 }
@@ -107,20 +108,22 @@ class BoomManager(
         val document = editor.document
         val explosionLine = editor.xyToLogicalPosition(explosionCenter).line
 
-        return (0 until document.lineCount).flatMap { line ->
+        return (0 until  document.lineCount).flatMap { line ->
             val startOffset = document.getLineStartOffset(line)
             val endOffset = document.getLineEndOffset(line)
             val distance = abs(editor.offsetToLogicalPosition(startOffset).line - explosionLine)
 
             document.getText(TextRange(startOffset, endOffset)).mapIndexedNotNull { index, c ->
                 if(c.isWhitespace()) return@mapIndexedNotNull null
+                if(distance > EXP_STRENGTH) return@mapIndexedNotNull null
+
                 val charPos = editor.offsetToXY(startOffset + index)
                 MovableObject(
                     position = charPos.toVec2(editor.scrollingModel),
                     width = getCharWidth(editor, c),
                     height = editor.lineHeight,
                     char = c.toString(),
-                    inRange = distance <= EXP_STRENGTH,
+                    lineNumber = line,
                 )
             }
         }

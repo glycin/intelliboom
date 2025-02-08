@@ -10,7 +10,7 @@ class MovableObject(
     val width: Int,
     val height: Int,
     val char: String,
-    val inRange: Boolean,
+    val lineNumber: Int,
     var label: JLabel? = null,
 ){
     fun minX() = position.x

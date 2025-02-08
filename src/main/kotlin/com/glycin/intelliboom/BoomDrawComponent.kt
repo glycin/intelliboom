@@ -1,7 +1,6 @@
 package com.glycin.intelliboom
 
 import com.intellij.openapi.editor.colors.EditorColorsManager
-import com.intellij.ui.Gray
 import com.intellij.ui.JBColor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -103,9 +102,7 @@ class BoomDrawComponent(
         scope.launch (Dispatchers.Default) {
             delay(50) // A little delay to make the effect match the gif
             while(System.currentTimeMillis() < endTime) {
-                explosionObjects.filter {
-                    it.inRange
-                }.onEach { mo ->
+                explosionObjects.onEach { mo ->
                     val centerPos = mo.midPoint()
                     val distance = Vec2.distance(centerPos, explosionPos)
 
@@ -118,6 +115,7 @@ class BoomDrawComponent(
 
                     handleCollisions(mo)
                 }
+
                 delay(deltaTime)
             }
             explosionObjects.forEach { it.rest() }
@@ -153,11 +151,7 @@ class BoomDrawComponent(
     // Used for debugging
     private fun drawObjects(g: Graphics2D) {
         explosionObjects.forEach { eo ->
-            if(eo.inRange){
-                g.color = JBColor.GREEN
-            } else {
-                g.color = Gray._117
-            }
+            g.color = JBColor.GREEN
             g.drawRect(eo.position.x.roundToInt(), eo.position.y.roundToInt(), eo.width, eo.height)
         }
     }
