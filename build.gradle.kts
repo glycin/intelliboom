@@ -59,15 +59,15 @@ intellijPlatform  {
         changeNotes = """
             <h3>v1.3.0</h3><br>
             <b> Performance improvements </b><br>
-            Made some performance improvements for when explosions are triggered in a file with a lot of lines of code.
+            Made some performance improvements for when explosions are triggered in a file with a lot of lines of code. <br>
             <b> Added controls in settings </b><br>
-            Added a line of text in the plugin settings explaining how to trigger explosions.
+            Added a line of text in the plugin settings explaining how to trigger explosions. <br>
             <br>
             <h3>v1.2.0</h3><br>
             <b> Added sounds </b><br>
-            Added explosion sounds. You can turn these on/off through the settings (File -> Settings -> Code Exploder Settings)
+            Added explosion sounds. You can turn these on/off through the settings (File -> Settings -> Code Exploder Settings) <br>
             <b> Bug fixes </b><br>
-            Fixed a bug that made explosions slower after when multiple editors were opened simultaneously
+            Fixed a bug that made explosions slower after when multiple editors were opened simultaneously <br>
         """.trimIndent()
     }
 
