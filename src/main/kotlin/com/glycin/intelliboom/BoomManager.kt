@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.awt.Point
 import java.awt.image.BufferedImage
-import java.time.Instant
 import javax.swing.JScrollPane
 import javax.swing.SwingUtilities
 import kotlin.math.abs

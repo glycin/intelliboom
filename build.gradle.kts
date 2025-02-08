@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.2.0"
 }
 
-val v = "1.2.0"
+val v = "1.3.0"
 
 group = "com.glycin"
 version = v
@@ -57,6 +57,12 @@ intellijPlatform  {
         """.trimIndent()
 
         changeNotes = """
+            <h3>v1.3.0</h3><br>
+            <b> Performance improvements </b><br>
+            Made some performance improvements for when explosions are triggered in a file with a lot of lines of code.
+            <h3> Added controls in settings </b><br>
+            Added a line of text in the plugin settings explaining how to trigger explosions.
+            <br><br>
             <h3>v1.2.0</h3><br>
             <b> Added sounds </b><br>
             Added explosion sounds. You can turn these on/off through the settings (File -> Settings -> Code Exploder Settings)
